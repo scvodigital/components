@@ -1,0 +1,58 @@
+{
+  "name": "@scvo/components",
+  "version": "0.0.1",
+  "description": "Some custom or extended MDC components for use across our sites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clean && mkdirp build && node_modules/.bin/webpack --progress --colors",
+    "build:demos": "npm run clean && mkdirp build && node_modules/.bin/webpack --config=demos/webpack.config.js --progress --colors",
+    "build:min": "mkdirp build && cross-env MDC_ENV=production node_modules/.bin/webpack -p --progress --colors",
+    "clean": "del-cli build/** build .closure-tmp/** .closure-tmp",
+    "clean:site": "del-cli .site-generator-tmp/** .site-generator-tmp",
+    "dist": "npm run build && npm run build:min",
+    "dev": "npm run clean && cross-env MDC_ENV=development node_modules/.bin/webpack-dev-server --config=demos/webpack.config.js --progress --inline --hot --host 0.0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scvodigital/components.git"
+  },
+  "keywords": [
+    "MDC",
+    "Components",
+    "SCVO"
+  ],
+  "author": "Matthew Wilkes (SCVO)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/scvodigital/components/issues"
+  },
+  "homepage": "https://github.com/scvodigital/components#readme",
+  "dependencies": {
+    "material-components-web": "^0.41.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.4.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
+    "colors": "^1.3.2",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.1",
+    "dart-sass": "^1.15.1",
+    "del": "^3.0.0",
+    "del-cli": "^1.1.0",
+    "extract-loader": "^3.1.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "fibers": "^3.1.1",
+    "file-loader": "^2.0.0",
+    "fs-extra": "^7.0.1",
+    "glob": "^7.1.3",
+    "node-sass": "^4.10.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "webpack": "^3.12.0",
+    "webpack-dev-server": "^2.11.3"
+  }
+}
