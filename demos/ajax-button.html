@@ -36,6 +36,9 @@
         /* Blended equivalent of rgba(0, 0, 0, .05); */
         --mdc-slider-bg-color-behind-component: #f2f2f2;
       }
+      .hero {
+        flex-direction: column;
+      }
       .custom-bg {
         background-color: #eee;
         --mdc-slider-bg-color-behind-component: #eee;
@@ -71,7 +74,126 @@
       <div class="mdc-toolbar-fixed-adjust"></div>
       <section class="hero">
         <div id="hero-ajax-button-wrapper">
-          <button class="mdc-button mdc-button--raised" data-mdc-auto-init="SMCAjaxButton">Test Button</button>
+          <button class="mdc-button mdc-button--raised" id="test-button-1" 
+              data-mdc-auto-init="SMCAjaxButton"
+              data-ajax-state="on"
+              data-ajax-config='{
+                "states": {
+                  "on": {
+                    "url": "/data/success.json", 
+                    "method": "GET",
+                    "responseType": "json",
+                    "newState": {
+                      "if": [
+                        { "==": [ { "var": "body.success" }, true ] },
+                        "off",
+                        "on"
+                      ]
+                    },
+                    "initial": {
+                      "contents": {
+                        ">": "Turn button off"
+                      },
+                      "styles": {
+                        ">": {
+                          "backgroundColor": "#0000ff"
+                        }
+                      }
+                    },
+                    "before": {
+                      "styles": {
+                        ">": {
+                          "backgroundColor": "#ff0000"
+                        }                     
+                      },
+                      "attributes": {
+                        ">": {
+                          "disabled": "disabled"
+                        }
+                      },
+                      "contents": {
+                        "#test-output": "Fetching {{config.url}}. Please wait"
+                      },
+                      "run": [
+                        "function(data) { console.log(\"being evalled\", data); }"
+                      ]
+                    },
+                    "after": {
+                      "contents": {
+                        "#test-output": "Fetched: {{body.data.title}}\nPlease wait"
+                      },
+                      "delayed": {
+                        "5000": {
+                          "contents": {
+                            "#test-output": "DONE!"
+                          },
+                          "attributes": {
+                            ">": {
+                              "disabled": null
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "off": {
+                    "url": "/data/success.json", 
+                    "method": "GET",
+                    "responseType": "json",
+                    "newState": "on",
+                    "initial": {
+                      "contents": {
+                        ">": "Turn button on"
+                      },
+                      "styles": {
+                        ">": {
+                          "backgroundColor": "#00ff00"
+                        }
+                      }
+                    },
+                    "before": {
+                      "styles": {
+                        ">": {
+                          "backgroundColor": "#ff0000"
+                        }                     
+                      },
+                      "attributes": {
+                        ">": {
+                          "disabled": "disabled"
+                        }
+                      },
+                      "contents": {
+                        "#test-output": "Fetching {{config.url}}. Please wait"
+                      },
+                      "run": [
+                        "function(data) { console.log(\"being evalled\", data); }"
+                      ]
+                    },
+                    "after": {
+                      "contents": {
+                        "#test-output": "Fetched: {{body.data.title}}\nPlease wait"
+                      },
+                      "delayed": {
+                        "5000": {
+                          "contents": {
+                            "#test-output": "DONE!"
+                          },
+                          "attributes": {
+                            ">": {
+                              "disabled": null
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }'>
+            Test Button 1
+          </button>
+        </div>
+        <div>
+          <pre id="test-output">Click it!</pre>
         </div>
       </section>
 
@@ -110,6 +232,7 @@
     <script src="/assets/scvo-material-components.js"></script>
     <script>
       demoReady(function() {
+        mdc.autoInit();
         console.log('TEST');
       });
     </script>

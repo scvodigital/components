@@ -20,7 +20,11 @@ class SMCAjaxButton extends MDCComponent {
 
   initialize() {
     this.id = this.root_.id;
-    this.config = JSON.stringify(this.root_.getAttribute('data-config'));
+    try {
+      this.config = JSON.parse(this.root_.getAttribute('data-ajax-config'));
+    } catch (err) {
+      console.error('Could not parse `data-config` of SMCAjaxButton', err);
+    }
   }
 
   initialSyncWithDOM() {
@@ -41,10 +45,15 @@ class SMCAjaxButton extends MDCComponent {
 
   getDefaultFoundation() {
     return new SMCAjaxButtonFoundation((Object.assign({
+      config: this.config,
+      root: this.root_,
       addClass: (className) => this.root_.classList.add(className),
       removeClass: (className) => this.root_.classList.remove(className),
       hasClass: (className) => this.root_.classList.contains(className),
-      notifyInteraction: () => this.emit('SMCAjaxButton:interaction', {buttonId: this.id}, true),
+      notifyInteraction: () => this.emit('SMCAjaxButton:interaction', {
+        buttonId: this.id,
+        config: this.config
+      }, true),
       notifyRemoval: () => this.emit('SMCAjaxButton:removal', {buttonId: this.id, root: this.root_}, true),
       getComputedStyleValue: (propertyName) => window.getComputerStyle(this.root_).getPropertyValue(propertyName),
       setStyleProperty: (propertyName, value) => this.root_.style.setProperty(propertyName, value),

@@ -65,6 +65,17 @@ class JsBundleFactory {
     }) {
     chunks = chunks || this.globber_.getChunks({inputDirectory, filePathPattern});
 
+    /*
+    if (Array.isArray(chunks)) {
+      chunks = ['babel-polyfill', ...chunks];
+    } else if(typeof chunks === 'object') {
+      chunks.polyfill = 'babel-polyfill';
+    } else {
+      chunks = ['babel-polyfill', chunks];
+    }
+    console.log('CHUNKS:', chunks);
+    */
+
     return {
       name: bundleName,
       entry: chunks,

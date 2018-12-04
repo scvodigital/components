@@ -21,11 +21,11 @@
  * THE SOFTWARE.
  */
 
-import autoInit from '@material/auto-init/index';
+//import autoInit from '@material/auto-init/index';
 import * as ajaxButton from '../smc-ajax-button/index';
 
 // Register all components
-autoInit.register('SMCAjaxButton', ajaxButton.SMCAjaxButton);
+mdc.autoInit.register('SMCAjaxButton', ajaxButton.SMCAjaxButton);
 
 // Export all components.
 export {
